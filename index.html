@@ -93,7 +93,8 @@
                         id="empId"
                         placeholder="Employee ID"
                         readonly
-                        onfocus="generateEmployeeId()">
+                        onfocus="generateEmployeeId()"
+                        required>
                         
                     <label for="empName">Employee Name: <span class="required">*</span></label>
                     <input
@@ -118,9 +119,10 @@
 
                     <label for="phone">Phone: <span class="required">*</span></label>
                     <input
-                        type="text"
+                        type="tel"
                         id="phone"
                         placeholder="09XXXXXXXXX"
+                        maxlength="11"
                         required>
                         
                     <label for="email">Email: <span class="required">*</span></label>
@@ -128,6 +130,7 @@
                         type="email"
                         id="email"
                         placeholder="Email Address"
+                        maxlength="50"
                         required>
                     
                     <h3>Employment Information</h3>
@@ -143,7 +146,8 @@
                     <input
                         type="text"
                         id="position"
-                        placeholder="Position">
+                        placeholder="Position"
+                        required>
 
                     <label for="dateHired">Date Hired: <span class="required">*</span></label>
                     <input
@@ -160,7 +164,7 @@
                     </select>
 
                     <label for="status">Employment Status:<span class="required">*</span></label>
-                    <select id="status">
+                    <select id="status" required>
                         <option value="">Select Status</option>
                         <option value="On Boarding">On Boarding</option>
                         <option value="Active">Active</option>
@@ -194,36 +198,38 @@
                 <hr>
 
                 <!-- Search Employee -->
-                <label for="searchBox">Search Employee:</label>
-                <input
-                    type="text"
-                    id="searchBox"
-                    placeholder="Search Employee Name"
-                    onkeyup="searchEmployee()">
+                <div class="search-container">
+                    <label for="searchBox">Search Employee:</label>
+                    <input
+                        type="text"
+                        id="searchBox"
+                        placeholder="Search Employee ID, Employee Name, Department, Position"
+                        onkeyup="searchEmployee()">
+                </div>
 
-                    <!-- Employee Table -->
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Employee ID</th>
-                                    <th>Name</th>
-                                    <th>Department</th>
-                                    <th>Position</th>
-                                    <th>Date Hired</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead> 
+                <!-- Employee Table -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Date Hired</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead> 
 
-                            <!-- Employee Table Body -->
-                            <tbody id="employeeTableBody">
-                                <!-- Employee records will be dynamically inserted here -->
-                            </tbody>
+                        <!-- Employee Table Body -->
+                        <tbody id="employeeTableBody">
+                            <!-- Employee records will be dynamically inserted here -->
+                        </tbody>
 
-                        </table>
-                    </div>
+                    </table>
+                </div>
 
             </section>
             

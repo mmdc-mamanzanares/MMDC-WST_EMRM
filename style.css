@@ -132,6 +132,12 @@ label {
     color: #3B4F73;
 }
 
+.required {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 input,
 select {
     width: 100%;
@@ -151,12 +157,27 @@ select:focus {
     box-shadow: 0 0 5px rgba(132, 169, 216, 0.5);
 }
 
-/* Search Box */
+input:required,
+select:required {
+    border-left: 4px solid #84A9D8;
+}
+
+/* Search Box Section */
+.search-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #3B4F73;
+}
+
 #searchBox {
     max-width: 500px;
     width: 100%;
-    margin: 10px auto 20px auto;
-    display: block;
 }
 
 
@@ -184,7 +205,16 @@ button:hover {
     background-color: #8ECED1;
 }
 
+button:disabled {
+    background-color: #E5EDF5;
+    color: #8A99B5;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
 
+button:disabled:hover {
+    background-color: #E5EDF5;
+}
 
 /* Table Container */
 .table-container {

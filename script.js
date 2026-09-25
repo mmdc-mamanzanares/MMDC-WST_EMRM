@@ -15,16 +15,20 @@ function generateEmployeeId() {
 
     if (employees.length > 0) {
 
-        let lastEmployee =
-            employees[employees.length - 1];
+        let highestNumber = 0;
 
-        let lastID =
-            lastEmployee.empId;
+        employees.forEach(employee => {
 
-        let lastNumber =
-            parseInt(lastID.split("-")[1]);
+            let employeeNumber =
+                parseInt(employee.empId.split("-")[1]);
 
-        nextNumber = lastNumber + 1;
+            if (employeeNumber > highestNumber) {
+                highestNumber = employeeNumber;
+            }
+
+        });
+
+        nextNumber = highestNumber + 1;
     }
 
     let employeeId =
@@ -237,19 +241,19 @@ function updateEmployee() {
 
     employees[selectedEmployeeIndex] = updatedEmployee;
 
-    employees[selectedEmployeeIndex] = {
-        empId: document.getElementById("empId").value,
-        empName: document.getElementById("empName").value,
-        dateBirth: document.getElementById("dateBirth").value,
-        address: document.getElementById("address").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
-        department: document.getElementById("department").value,
-        position: document.getElementById("position").value,
-        dateHired: document.getElementById("dateHired").value,
-        type: document.getElementById("type").value,
-        status: document.getElementById("status").value
-    };
+    // employees[selectedEmployeeIndex] = {
+    //     empId: document.getElementById("empId").value,
+    //     empName: document.getElementById("empName").value,
+    //     dateBirth: document.getElementById("dateBirth").value,
+    //     address: document.getElementById("address").value,
+    //     phone: document.getElementById("phone").value,
+    //     email: document.getElementById("email").value,
+    //     department: document.getElementById("department").value,
+    //     position: document.getElementById("position").value,
+    //     dateHired: document.getElementById("dateHired").value,
+    //     type: document.getElementById("type").value,
+    //     status: document.getElementById("status").value
+    // };
 
     localStorage.setItem("employees", JSON.stringify(employees));
 
