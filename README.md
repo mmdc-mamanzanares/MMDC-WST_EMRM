@@ -25,7 +25,7 @@ A lightweight web-based Employee Maintenance and Records Management System devel
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/emrms.git
+git clone https://github.com/mmdc-mamanzanares/MMDC-WST_EMRM.git
 ```
 
 2. Navigate to the project directory:
