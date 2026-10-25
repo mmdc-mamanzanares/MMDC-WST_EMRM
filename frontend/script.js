@@ -1,7 +1,18 @@
+// ========================================
+// Check User Login
+// ========================================
+if (
+	!sessionStorage.getItem(
+    	"loggedInUser"
+	)
+) {
+	window.location.href =
+    	"login.html";
+}
+
 // Stores all employee records retrieved from backend
 let employees = [];
 let selectedEmployeeIndex = -1;
-
 // ========================================
 // Display Field Error
 // ========================================
@@ -1251,6 +1262,18 @@ document
         validatePosition
     );
 
+// ========================================
+// LOGOUT USER
+// ========================================
+function logout() {
+	// Remove current login session
+	sessionStorage.removeItem(
+    	"loggedInUser"
+	);
+	// Return to login page
+	window.location.href =
+    	"login.html";
+}
 
 // ========================================
 // APPLICATION STARTUP
