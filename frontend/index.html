@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Maintenance and Records Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Employee Maintenance and Record Management System</h1>
+        </header>
+
+        <!-- Navigation Section-->
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#records">Employee Records</a>
+            <a href="#about">About</a>
+        </nav>
+        
+        <hr>
+        
+        <main>
+            <!-- DASHBOARD Section -->
+            <section id="dashboard" class="section">
+
+                <h2>DASHBOARD</h2>
+
+                <div class="dashboard-cards">
+
+                    <div class="card">
+                        <h3>Total Employees</h3>
+                        <p id="totalEmployees">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>On Boarding Employees</h3>
+                        <p id="onBoardingEmployees">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Active Employees</h3>
+                        <p id="activeEmployees">0</p>
+                    </div>
+
+                    
+
+                    <div class="card">
+                        <h3>On Leave Employees</h3>
+                        <p id="onLeaveEmployees">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Resigned Employees</h3>
+                        <p id="resignedEmployees">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Regular Employees</h3>
+                        <p id="regularEmployees">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Probationary Employees</h3>
+                        <p id="probationaryEmployees">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Contractual Employees</h3>
+                        <p id="contractualEmployees">0</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <hr>
+
+            <!-- EMPLOYEE RECORDS -->
+            <section id="records" class="section">
+
+                <h2>EMPLOYEE RECORDS</h2>
+
+                <!-- Employee Form -->
+                <form class="form-container" onsubmit="return false;">
+                    
+                    <h3>Employee Information</h3>
+                    
+                    <label for="empId">Employee ID: <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="empId"
+                        placeholder="Employee ID"
+                        readonly
+                        onfocus="generateEmployeeId()"
+                        required>
+                        
+                    <label for="empName">Employee Name: <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="empName"
+                        placeholder="Employee Name"
+                        required>
+
+                    <!-- Employee Name Validation Error -->
+                    <span
+                        id="empNameError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+                    
+                    <label for="dateBirth">Date of Birth: <span class="required">*</span></label>
+                    <input
+                        type="date"
+                        id="dateBirth"
+                        required>
+                    
+                    <h3>Contact Information</h3>
+
+                    <label for="address">Address:</label>
+                    <input
+                        type="text"
+                        id="address"
+                        placeholder="Address">
+
+                    <!-- Address Validation Error -->
+                    <span
+                        id="addressError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+
+                    <label for="phone">Phone: <span class="required">*</span></label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="09XXXXXXXXX"
+                        maxlength="11"
+                        required>
+                    <!-- Phone Validation Error -->
+                    <span
+                        id="phoneError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+                        
+                    <label for="email">Email: <span class="required">*</span></label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Email Address"
+                        maxlength="50"
+                        required>
+                    <span
+                        id="emailError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+                    
+                    <h3>Employment Information</h3>
+
+                    <label for="department">Department: <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="department"
+                        placeholder="Department"
+                        required>
+                    <span
+                        id="departmentError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+                    
+                    <label for="position">Position: <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="position"
+                        placeholder="Position"
+                        required>
+                    <span
+                        id="positionError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+
+                    <label for="dateHired">Date Hired: <span class="required">*</span></label>
+                    <input
+                        type="date"
+                        id="dateHired"
+                        required>
+
+                    <label for="type">Employment Type: <span class="required">*</span></label>
+                    <select id="type" required>
+                        <option value="">Select Type</option>
+                        <option value="Regular">Regular</option>
+                        <option value="Probationary">Probationary</option>
+                        <option value="Contractual">Contractual</option>
+                    </select>
+
+                    <span
+                        id="typeError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+
+
+                    <label for="status">Employment Status:<span class="required">*</span></label>
+                    <select id="status" required>
+                        <option value="">Select Status</option>
+                        <option value="On Boarding">On Boarding</option>
+                        <option value="Active">Active</option>
+                        <option value="On Leave">On Leave</option>
+                        <option value="Resigned">Resigned</option>
+                    </select>
+
+                    <span
+                        id="statusError"
+                        class="error"
+                        aria-live="polite">
+                    </span>
+
+                    <!-- General Form Validation Error -->
+                    <div
+                        id="formError"
+                        class="error"
+                        aria-live="polite">
+                    </div>
+
+                    <!-- Button Group  -->
+                    <div class="button-group">
+
+                        <button type="button" id="addBtn" onclick="addEmployee()">
+                            Add Employee
+                        </button>
+
+                        <button type="button" id="editBtn" onclick="updateEmployee()" disabled>
+                            Edit Employee
+                        </button>
+
+                        <button type="button" onclick="clearForm()">
+                            Clear
+                        </button>
+
+                        <button type="button" onclick="clearAllEmployees()">
+                            Clear All Records
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <hr>
+
+                <!-- Search Employee -->
+                <div class="search-container">
+                    <label for="searchBox">Search Employee:</label>
+                    <input
+                        type="text"
+                        id="searchBox"
+                        placeholder="Search Employee ID, Employee Name, Department, Position"
+                        onkeyup="searchEmployee()">
+                </div>
+
+                <!-- Employee Table -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Date Hired</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead> 
+
+                        <!-- Employee Table Body -->
+                        <tbody id="employeeTableBody">
+                            <!-- Employee records will be dynamically inserted here -->
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </section>
+            
+            <hr>
+
+            <section id="about" class="section">
+
+                <h2>ABOUT</h2>
+
+                <p>
+                    The Employee Maintenance and Records Management
+                    System (EMRMS) is a browser-based application
+                    designed to manage employee information through
+                    a centralized and organized platform.
+                </p>
+
+                <h3>Purpose</h3>
+
+                <p>
+                    This system enables Human Resources personnel
+                    to maintain employee records efficiently,
+                    improve data accessibility, and support day-to-day
+                    employee management activities.
+                </p>
+
+                <h3>Target Users</h3>
+
+                <ul>
+                    <li>Human Resources Staff</li>
+                    <li>HR Managers</li>
+                    <li>Department Managers</li>
+                    <li>System Administrators</li>
+                </ul>
+            </section>
+
+        </main>
+        
+        <hr>
+        
+        <footer>
+            <p>&copy; 2026 Employee Maintenance and Records Management System.</p>
+            <p> This system is created as Web Systems and Technology project.</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
