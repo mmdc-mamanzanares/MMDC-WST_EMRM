@@ -560,6 +560,46 @@ app.delete(
     }
 );
 
+// ========================================
+// GET LOOKUP VALUES
+// Returns dropdown values used by frontend
+// ========================================
+app.get(
+	"/api/lookups",
+	(req, res) => {
+    	try {
+        	// Define lookup file location
+        	const LOOKUP_FILE =
+            	path.join(
+                	__dirname,
+                	"data",
+                	"lookups.json"
+            	);
+        	// Read lookup data from file
+        	const lookups =
+            	JSON.parse(
+                	fs.readFileSync(
+                    	LOOKUP_FILE,
+                    	"utf8"
+                	)
+            	);
+        	// Return lookup values
+        	res.status(200).json(
+            	lookups
+        	);
+    	}
+    	catch (error) {
+        	// Return server error if file cannot be loaded
+        	res.status(500).json({
+            	message:
+                	"Unable to load lookup values.",
+            	error:
+                	error.message
+        	});
+    	}
+	}
+);
+
 // -----------------------------------------------------
 // START SERVER
 // -----------------------------------------------------

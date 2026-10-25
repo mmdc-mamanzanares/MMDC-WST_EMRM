@@ -193,12 +193,16 @@
                         required>
 
                     <label for="type">Employment Type: <span class="required">*</span></label>
+                   <!-- Employment Type Dropdown -->
                     <select id="type" required>
-                        <option value="">Select Type</option>
-                        <option value="Regular">Regular</option>
-                        <option value="Probationary">Probationary</option>
-                        <option value="Contractual">Contractual</option>
+
+                     <!-- Values loaded from backend -->
+                     <option value="">
+                       Loading...
+                        </option>
+
                     </select>
+
 
                     <span
                         id="typeError"
@@ -208,13 +212,14 @@
 
 
                     <label for="status">Employment Status:<span class="required">*</span></label>
+                    <!-- Employment Status Dropdown -->
                     <select id="status" required>
-                        <option value="">Select Status</option>
-                        <option value="On Boarding">On Boarding</option>
-                        <option value="Active">Active</option>
-                        <option value="On Leave">On Leave</option>
-                        <option value="Resigned">Resigned</option>
+	                <!-- Values loaded from backend -->
+	                    <option value="">
+                            Loading...
+                        </option>
                     </select>
+
 
                     <span
                         id="statusError"

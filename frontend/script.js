@@ -496,6 +496,135 @@ async function addEmployee() {
  * Retrieve employee records
  * from backend API
  */
+
+// ========================================
+// LOAD LOOKUP DATA
+// Retrieves dropdown values from backend
+// ========================================
+async function loadLookups() {
+	try {
+    	// Request lookup values from backend API
+    	const response =
+        	await fetch(
+            	"http://localhost:3000/api/lookups"
+        	);
+    	// Convert JSON response
+    	const data =
+        	await response.json();
+    	// Load Employment Types
+    	populateEmploymentTypes(
+        	data.employmentTypes
+    	);
+    	// Load Employment Statuses
+    	populateEmploymentStatuses(
+        	data.employmentStatuses
+    	);
+	}
+	catch (error) {
+    	// Display error in browser console
+    	console.error(
+        	"Error loading lookups:",
+        	error
+    	);
+	}
+}
+// ========================================
+// POPULATE EMPLOYMENT TYPES
+// Creates dropdown options dynamically
+// ========================================
+function populateEmploymentTypes(types) {
+	// Retrieve Employment Type dropdown
+	const typeDropdown =
+    	document.getElementById(
+        	"Type"
+    	);
+
+	// Clear existing options
+	typeDropdown.innerHTML = "";
+	
+// Create default option
+	const defaultOption =
+    	document.createElement(
+        	"option"
+    	);
+	
+defaultOption.value = "";
+	defaultOption.textContent =
+    	"Select Type";
+	
+// Add default option
+	typeDropdown.appendChild(
+    	defaultOption
+	);
+	
+// Create option for each type
+	types.forEach(type => {
+    	const option =
+        	document.createElement(
+            	"option"
+        	);
+    	
+option.value = type;
+
+    	option.textContent = type;
+
+    	typeDropdown.appendChild(
+        		option
+    	);
+	});
+}
+// ========================================
+// POPULATE EMPLOYMENT STATUSES
+// Creates dropdown options dynamically
+// ========================================
+
+function populateEmploymentStatuses(statuses) {
+
+    // Retrieve Employment Status dropdown
+    const statusDropdown =
+        document.getElementById(
+            "status"
+        );
+
+    // Remove current options
+    statusDropdown.innerHTML = "";
+
+    // Create default option
+    const defaultOption =
+        document.createElement(
+            "option"
+        );
+
+    defaultOption.value = "";
+
+    defaultOption.textContent =
+        "Select Status";
+
+    // Add default option
+    statusDropdown.appendChild(
+        defaultOption
+    );
+
+    // Create options from backend data
+    statuses.forEach(status => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = status;
+
+        option.textContent = status;
+
+        statusDropdown.appendChild(
+            option
+        );
+
+    });
+
+}
+
 async function loadEmployees() {
 
     try {
@@ -1125,10 +1254,15 @@ document
 
 // ========================================
 // APPLICATION STARTUP
+// Runs when page loads
 // ========================================
+
 window.onload = async function () {
 
-    // Retrieve employee records
+    // Load dropdown values
+    await loadLookups();
+
+    // Load employee records
     await loadEmployees();
 
     // Generate next employee ID

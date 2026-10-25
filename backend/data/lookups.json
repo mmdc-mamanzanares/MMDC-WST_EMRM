@@ -1,0 +1,13 @@
+{
+  "employmentTypes": [
+	"Regular",
+	"Probationary",
+	"Contractual"
+  ],
+  "employmentStatuses": [
+	"On Boarding",
+	"Active",
+	"On Leave",
+	"Resigned"
+  ]
+}
