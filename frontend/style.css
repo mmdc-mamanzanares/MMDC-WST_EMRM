@@ -5,7 +5,12 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #F8FAFC;
+    background:
+    linear-gradient(
+        135deg,
+        #F8FAFC,
+        #DCE7F2
+    );
     margin: 0;
     min-height: 100vh;
     padding: 20px;
@@ -427,5 +432,73 @@ input[readonly] {
     cursor: not-allowed;
 
     color: #64748b;
+
+}
+
+/* =====================================
+   LOGIN PAGE
+===================================== */
+
+.login-container {
+
+    max-width: 450px;
+
+    margin: 80px auto;
+
+    padding: 30px;
+
+    background-color: #FFFFFF;
+
+    border-radius: 12px;
+
+    border: 1px solid #DCE7F2;
+
+    box-shadow:
+        0 2px 8px rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+}
+
+.login-container h1 {
+
+    color: #5B7DB1;
+
+    text-align: center;
+
+    margin-bottom: 10px;
+
+}
+
+.login-container p {
+
+    text-align: center;
+
+    color: #64748B;
+
+    margin-bottom: 25px;
+
+}
+
+.login-container button {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    margin-right: 0;
+
+}
+
+.login-logo {
+
+    text-align: center;
+
+    font-size: 48px;
+
+    margin-bottom: 10px;
 
 }

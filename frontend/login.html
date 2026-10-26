@@ -2,42 +2,96 @@
 <html>
 <head>
 	<title>EMRMS Login</title>
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="login-container">
-    	<h2>
-        	Employee Records Management System
-    	</h2>
-    	<label>
-        	Username
-    	</label>
-    	<input
-        	type="text"
-        	id="username">
-    	<span
-        	id="usernameError"
-        	class="error">
-    	</span>
-    	<label>
-        	Password
-    	</label>
-    	<input
-        	type="password"
-        	id="password">
-    	<span
-        	id="passwordError"
-        	class="error">
-    	</span>
-    	<div
-        	id="loginError"
-        	class="error">
-    	</div>
-    	<button
-        	onclick="login()">
-        	Login
-    	</button>
-	</div>
-	<script src="login.js"></script>
+
+    <div class="login-container">
+
+        <!-- Login Icon -->
+
+        <div class="login-logo">
+
+            👥
+
+        </div>
+
+        <!-- System Title -->
+
+        <h1>
+
+            Employee Maintenance and
+            Records Management System
+
+        </h1>
+
+        <p>
+
+            Human Resources Information System
+
+        </p>
+
+        <!-- Username -->
+
+        <label for="username">
+
+            Username
+
+        </label>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter Username">
+
+        <!-- Password -->
+
+        <label for="password">
+
+            Password
+
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password">
+
+        <!-- Login Error -->
+
+        <div
+            id="loginError"
+            class="error"
+            aria-live="polite">
+
+        </div>
+
+        <!-- Login Button -->
+
+        <button
+            type="button"
+            onclick="login()">
+
+            Login
+
+        </button>
+
+    </div>
+
+    <script src="login.js"></script>
+
+	<p
+    style="
+        text-align:center;
+        margin-top:20px;
+        color:#64748B;
+        font-size:12px;
+    ">
+
+    © 2026 Employee Maintenance and
+    Records Management System
+
+</p>
+
 </body>
 </html>

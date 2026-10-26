@@ -547,7 +547,7 @@ function populateEmploymentTypes(types) {
 	// Retrieve Employment Type dropdown
 	const typeDropdown =
     	document.getElementById(
-        	"Type"
+        	"type"
     	);
 
 	// Clear existing options

@@ -133,49 +133,49 @@ app.get(
     }
 );
 
-// ========================================
-// LOGIN API
-// ========================================
-app.post(
-	"/api/login",
-	(req, res) => {
-    	const {
-        	username,
-        	password
-    	} = req.body;
-    	const USERS_FILE =
-        	path.join(
-            	__dirname,
-            	"data",
-            	"users.json"
-        	);
-    	const users =
-        	JSON.parse(
-            	fs.readFileSync(
-                	USERS_FILE,
-                	"utf8"
-            	)
-        	);
-    	const user =
-        	users.find(
-            	user =>
-                	user.username === username &&
-                	user.password === password
-        	);
-    	if (!user) {
-        	return res.status(401).json({
-            	message:
-            	"Invalid username or password."
-        	});
-    	}
-    	res.json({
-        	message:
-        	"Login successful.",
-        	username:
-        	user.username
-    	});
-	}
-);
+// // ========================================
+// // LOGIN API
+// // ========================================
+// app.post(
+// 	"/api/login",
+// 	(req, res) => {
+//     	const {
+//         	username,
+//         	password
+//     	} = req.body;
+//     	const USERS_FILE =
+//         	path.join(
+//             	__dirname,
+//             	"data",
+//             	"users.json"
+//         	);
+//     	const users =
+//         	JSON.parse(
+//             	fs.readFileSync(
+//                 	USERS_FILE,
+//                 	"utf8"
+//             	)
+//         	);
+//     	const user =
+//         	users.find(
+//             	user =>
+//                 	user.username === username &&
+//                 	user.password === password
+//         	);
+//     	if (!user) {
+//         	return res.status(401).json({
+//             	message:
+//             	"Invalid username or password."
+//         	});
+//     	}
+//     	res.json({
+//         	message:
+//         	"Login successful.",
+//         	username:
+//         	user.username
+//     	});
+// 	}
+// );
 
 // -----------------------------------------------------
 // GET ALL EMPLOYEES
@@ -642,6 +642,48 @@ app.get(
         	});
     	}
 	}
+);
+
+
+// ========================================
+// LOGIN USER
+// Validates username and password
+// ========================================
+
+app.post(
+    "/api/login",
+    (req, res) => {
+
+        const {
+            username,
+            password
+        } = req.body;
+
+        if (
+            username === "admin" &&
+            password === "admin123"
+        ) {
+
+            return res.status(200).json({
+
+                message:
+                    "Login successful.",
+
+                username:
+                    username
+
+            });
+
+        }
+
+        res.status(401).json({
+
+            message:
+                "Invalid username or password."
+
+        });
+
+    }
 );
 
 // -----------------------------------------------------
