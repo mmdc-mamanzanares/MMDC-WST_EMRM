@@ -1,41 +1,28 @@
 [
   {
     "empId": "2026-0001",
-    "empName": "TEst",
-    "dateBirth": "1990-11-01",
-    "address": "asdfasdf",
-    "phone": "09171234567",
-    "email": "asdflasdkf@domain.com",
-    "department": "Test",
-    "position": "Test Position",
-    "dateHired": "1991-01-01",
-    "type": "Regular",
-    "status": "Active"
+    "empName": "Juan Dela Cruz",
+    "dateBirth": "1990-01-01",
+    "address": "Sitio D Majanap, Kalye likoliko",
+    "phone": "09191234567",
+    "email": "jdcruz@domain.com",
+    "department": "Executive",
+    "position": "CEO",
+    "dateHired": "2000-01-01",
+    "type": "Contractual",
+    "status": "On Boarding"
   },
   {
     "empId": "2026-0002",
-    "empName": "sdfgsdfg",
-    "dateBirth": "2006-01-01",
-    "address": "123aasdf",
+    "empName": "John Doe",
+    "dateBirth": "2000-02-02",
+    "address": "Xavier St Berdeng tanawin, Kalokohan city",
     "phone": "09171234567",
-    "email": "aksdflajsdlf@domain.com",
-    "department": "laksdjflj",
-    "position": "aksdlfjals",
-    "dateHired": "1999-01-01",
+    "email": "jdoe@domain.com",
+    "department": "Executive",
+    "position": "COO",
+    "dateHired": "2020-01-01",
     "type": "Probationary",
-    "status": ""
-  },
-  {
-    "empId": "2026-0003",
-    "empName": "asdf",
-    "dateBirth": "2006-01-01",
-    "address": "asdf34023 qel;faks;;'sd]+",
-    "phone": "09171234567",
-    "email": "sdfgsfg@domain.com",
-    "department": "asdf",
-    "position": "sfasdfllkl",
-    "dateHired": "2006-01-01",
-    "type": "Regular",
-    "status": "Active"
+    "status": "Resigned"
   }
 ]

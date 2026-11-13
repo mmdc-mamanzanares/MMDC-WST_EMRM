@@ -1,21 +1,21 @@
 # Employee Maintenance and Records Management System (EMRMS)
 
-A web-based Employee Maintenance and Records Management System developed as part of the Web Systems and Technologies course. The system allows users to manage employee records, monitor workforce statistics, search employee information, and maintain data through a Node.js and Express backend with JSON file storage.
+A web-based Employee Maintenance and Records Management System developed as part of the Web Systems and Technologies course. The system allows users to manage employee records, monitor workforce statistics, search employee information, and maintain data through a Node.js and Express.js backend with JSON file storage.
 
 ## Features
 
-# Features
-- Employee Management
+### Employee Management
 - Create Employee Records
 - View Employee Records
 - Update Employee Records
 - Delete Employee Records
+- Delete All Employee Records
 - Auto-Generated Employee IDs
 - Employee Search and Filtering
 
-# Dashboard Analytics
+### Dashboard Analytics
 - Total Employees
-- On Boarding Employees
+- Onboarding Employees
 - Active Employees
 - On Leave Employees
 - Resigned Employees
@@ -23,7 +23,7 @@ A web-based Employee Maintenance and Records Management System developed as part
 - Probationary Employees
 - Contractual Employees
 
-# Validation
+### Validation
 - Required Field Validation
 - Real-Time Validation
 - Input Sanitization
@@ -31,16 +31,18 @@ A web-based Employee Maintenance and Records Management System developed as part
 - Phone Number Validation
 - Duplicate Employee ID Checking
 - Field-Level Error Messages
+- Backend Input Validation
 
-# Backend Features
+### Backend Features
 - RESTful API using Express.js
 - JSON File Data Persistence
 - Employee Search API
 - Lookup API for Employment Types and Statuses
 - Health Check API
 - Backend Validation and Error Handling
+- Employee Record Management through API Requests
 
-# User Interface
+### User Interface
 - Responsive Design
 - Dynamic Dashboard Updates
 - Dynamic Employment Type Loading
@@ -50,60 +52,78 @@ A web-based Employee Maintenance and Records Management System developed as part
 
 ## Technologies Used
 
-# Frontend
+### Frontend
 - HTML5
 - CSS3
 - JavaScript (ES6)
 
-# Backend
+### Backend
 - Node.js
 - Express.js
 - CORS
 
-# Data Storage
+### Data Storage
 - JSON File Storage
 
 ## Getting Started
 
-1. Clone the repository:
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/mmdc-mamanzanares/MMDC-WST_EMRM.git
 ```
 
-2. Navigate to the Backend directory:
+### 2. Navigate to the Backend Directory
 
 ```bash
 cd MMDC-WST_EMRM/backend
 ```
 
-3. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-4. Start Backend Server
+### 4. Start the Backend Server
 
 ```bash
 npm start
 ```
- Server URL:
-    http://localhost:3000
 
-5. Launch Frontend
+The backend server will run at:
 
-```bash
-frontend/login.html
-```
-or
-```bash
-frontend/index.html
-```
+`http://localhost:3000`
+
+### 5. Launch the Frontend
+
+Open the project folder in Visual Studio Code and launch the frontend using the Live Server extension, or open the following HTML files in your browser:
+
+- `frontend/login.html` – Login page
+- `frontend/index.html` – Main employee management interface
+
+## Login Credentials
+
+The system includes a login feature for demonstration and academic purposes.
+
+**Demo Account**
+
+| Field | Value |
+|---|---|
+| Username | `[Enter demo username]` |
+| Password | `[Enter demo password]` |
+
+**Credential Storage**
+
+User account information is maintained in:
+
+`backend/data/users.json`
+
+**Important:** The login functionality is a prototype for demonstration purposes and is not intended to represent a complete production authentication system. Do not publish actual passwords, private credentials, or sensitive account information in a public repository. Use designated demo credentials for testing and demonstrations.
 
 ## Project Structure
 
-``````````````text
+```text
 MMDC-WST_EMRM/
 │
 ├── frontend/
@@ -120,75 +140,92 @@ MMDC-WST_EMRM/
 │   │
 │   └── data/
 │       ├── employees.json
-│       └── lookups.json
+│       ├── lookups.json
 │       └── users.json
 │
 └── README.md
-````````````````
+```
+
 ## API Endpoints
 
-# Health Check
-- GET /api/health
-    Returns API status information.
+### Health Check
 
-# Employee Records
-- GET /api/employees
-    Retrieve all employee records.
-- POST /api/employees
-    Create a new employee record.
-- PUT /api/employees/:id
-    Update an existing employee record.
-- DELETE /api/employees/:id
-    Delete an employee record.
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Returns API status information. |
 
-# Search Employees
-- GET /api/employees/search?keyword=value
-    Search employees by:
-        - Employee ID
-        - Employee Name
-        - Department
-        - Position
+### Employee Records
 
-# Lookup Values
-- GET /api/lookups
-    Returns:
-        - Employment Types
-        - Employment Statuses
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/employees` | Retrieves all employee records. |
+| POST | `/api/employees` | Creates a new employee record. |
+| PUT | `/api/employees/:id` | Updates an existing employee record. |
+| DELETE | `/api/employees/:id` | Deletes a specific employee record. |
+| DELETE | `/api/employees` | Deletes all employee records. |
+
+### Search Employees
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/employees/search?keyword=value` | Searches employees by Employee ID, Employee Name, Department, or Position. |
+
+### Lookup Values
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/lookups` | Returns available Employment Types and Employment Statuses. |
 
 ## Validation Rules
 
-Employee Information
-- Employee Name: Letters and spaces only
+### Employee Information
+- Employee Name: Letters and spaces only.
+- Required fields must not be empty.
 
-Contact Information
-- Phone Number: Exactly 11 digits
-- Email Address: Valid email format
+### Contact Information
+- Phone Number: Exactly 11 digits.
+- Email Address: Must follow a valid email format.
 
-Employment Information
-- Department: Letters and spaces only
-- Position: Letters and spaces only
-- Employment Type: Required
-- Employment Status: Required
+### Employment Information
+- Department: Letters and spaces only.
+- Position: Letters and spaces only.
+- Employment Type: Required.
+- Employment Status: Required.
+
+### Employee Record Management
+- Employee IDs must be unique.
+- Employee IDs cannot be changed during an update.
+- Employee information is validated before backend updates are saved.
+
+## Data Persistence
+
+The system uses JSON file storage to maintain employee records through the Node.js and Express.js backend.
+
+Employee information is stored in:
+
+`backend/data/employees.json`
+
+The backend processes employee management requests and saves changes to the JSON file. This allows employee records to persist even after refreshing the browser or restarting the backend server.
 
 ## Future Enhancements
 
 - Employee Photo Upload
 - Excel/PDF Export
-- Reporting and Analytics
+- Additional Reporting and Analytics
 
-## Author
+## Authors
 
 **Mark Anthony Manzanares**  
-BSIT Major in Network and Cybersecurity  
+BSIT Major in Network and Cybersecurity
 
 **Clark Kent Santos**  
-BSIT Major in Network and Cybersecurity  
+BSIT Major in Network and Cybersecurity
 
 **Alleriza Jamsuli**  
-BSIT Major in Software Development  
+BSIT Major in Software Development
 
 **Jovy Ambongan**  
-BSIT Major in Data Analytics 
+BSIT Major in Data Analytics
 
 ## Academic Disclaimer
 

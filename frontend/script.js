@@ -466,38 +466,34 @@ async function addEmployee() {
     }
 
     try {
-
-        // Send employee record to backend
-        await fetch(
+        const response = await fetch(
             "http://localhost:3000/api/employees",
             {
-
                 method: "POST",
-
                 headers: {
-
                     "Content-Type": "application/json"
-
                 },
-
                 body: JSON.stringify(employee)
-
             }
         );
 
-        // Reload employee list
-        await loadEmployees();
+        const result = await response.json();
 
+        if (!response.ok) {
+            throw new Error(
+                result.message || "Failed to add employee."
+            );
+        }
+
+        await loadEmployees();
         clearForm();
 
-        alert(
-            "Employee added successfully."
-        );
+        alert(result.message);
 
-    } catch(error) {
+    } catch (error) {
+        console.error("Error adding employee:", error);
 
-        console.error(error);
-
+        alert(error.message);
     }
 
 }
@@ -936,45 +932,36 @@ async function updateEmployee() {
     }
 
     try {
-
-        await fetch(
-
+        const response = await fetch(
             `http://localhost:3000/api/employees/${updatedEmployee.empId}`,
-
             {
-
                 method: "PUT",
-
                 headers: {
-
-                    "Content-Type":
-                    "application/json"
-
+                    "Content-Type": "application/json"
                 },
-
-                body:
-                JSON.stringify(updatedEmployee)
-
+                body: JSON.stringify(updatedEmployee)
             }
-
         );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.message || "Failed to update employee."
+            );
+        }
 
         await loadEmployees();
-
         clearForm();
 
-        alert(
-            "Employee updated successfully."
-        );
+        alert(result.message);
 
-    } catch(error) {
+    } catch (error) {
+        console.error("Error updating employee:", error);
 
-        console.error(error);
-
+        alert(error.message);
     }
-
 }
-
 
 // ========================================
 // DELETE EMPLOYEE
@@ -994,31 +981,32 @@ async function deleteEmployee(index) {
     }
 
     try {
+        const empId = employees[index].empId;
 
-        // Get Employee ID
-        const empId =
-            employees[index].empId;
-
-        await fetch(
-
+        const response = await fetch(
             `http://localhost:3000/api/employees/${empId}`,
-
             {
-
                 method: "DELETE"
-
             }
-
         );
 
-        await loadEmployees();
+        const result = await response.json();
 
+        if (!response.ok) {
+            throw new Error(
+                result.message || "Failed to delete employee."
+            );
+        }
+
+        await loadEmployees();
         clearForm();
 
-    } catch(error) {
+        alert(result.message);
 
-        console.error(error);
+    } catch (error) {
+        console.error("Error deleting employee:", error);
 
+        alert(error.message);
     }
 
 }
@@ -1170,21 +1158,47 @@ function clearForm() {
 }
 
 // Clear All Employees in the Table and Local Storage
-function clearAllEmployees() {
+async function clearAllEmployees() {
 
-    let answer = confirm(
+    const answer = confirm(
         "Are you sure you want to delete all employee records?"
     );
 
-    if (answer) {
-        employees = [];
-        alert( "Clear All Employees feature not yet connected to backend.");
+    if (!answer) {
+        return;
+    }
 
-        displayEmployees();
-        updateDashboard();
-        generateEmployeeId();
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/employees",
+            {
+                method: "DELETE"
+            }
+        );
 
-        alert("All employee records have been deleted.");
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.message || "Failed to clear employee records."
+            );
+        }
+
+        // Reload employee records from the backend
+        await loadEmployees();
+
+        // Reset the form
+        clearForm();
+
+        alert(result.message);
+
+    } catch (error) {
+        console.error(
+            "Error clearing employee records:",
+            error
+        );
+
+        alert(error.message);
     }
 }
 

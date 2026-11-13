@@ -53,6 +53,59 @@ const DATA_FILE = path.join(
 // -----------------------------------------------------
 
 /**
+ * Sanitize employee input
+ * Removes unnecessary whitespace and ensures string values.
+ */
+function sanitizeEmployee(employee) {
+    const fields = [
+        "empId",
+        "empName",
+        "dateBirth",
+        "address",
+        "phone",
+        "email",
+        "department",
+        "position",
+        "dateHired",
+        "type",
+        "status"
+    ];
+
+    const sanitized = {};
+
+    fields.forEach(field => {
+        sanitized[field] = String(employee[field] ?? "").trim();
+    });
+
+    return sanitized;
+}
+
+/**
+ * Validate employee information
+ * Returns an object containing validation errors.
+ */
+function validateEmployee(employee) {
+    const errors = {};
+
+    if (!/^[A-Za-z\s]+$/.test(employee.empName)) {
+        errors.empName =
+            "Employee Name may contain letters only.";
+    }
+
+    if (!/^\d{11}$/.test(employee.phone)) {
+        errors.phone =
+            "Phone Number must contain 11 digits.";
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(employee.email)) {
+        errors.email =
+            "Invalid email format.";
+    }
+
+    return errors;
+}
+
+/**
  * Read employee records from JSON file
  * @returns {Array}
  */
@@ -100,12 +153,12 @@ function saveEmployees(employees) {
         );
 
     } catch (error) {
-
         console.error(
             "Error saving employee file:",
             error.message
         );
 
+        throw error;
     }
 
 }
@@ -334,55 +387,6 @@ app.post(
             // Validation and Sanitization Functions
             // ========================================
 
-            function sanitizeEmployee(employee) {
-
-                return {
-
-                    empId: String(employee.empId || "").trim(),
-                    empName: String(employee.empName || "").trim(),
-                    dateBirth: String(employee.dateBirth || "").trim(),
-                    address: String(employee.address || "").trim(),
-                    phone: String(employee.phone || "").trim(),
-                    email: String(employee.email || "").trim(),
-                    department: String(employee.department || "").trim(),
-                    position: String(employee.position || "").trim(),
-                    dateHired: String(employee.dateHired || "").trim(),
-                    type: String(employee.type || "").trim(),
-                    status: String(employee.status || "").trim()
-
-                };
-
-            }
-
-            function validateEmployee(employee) {
-
-                const errors = {};
-
-                if (!employee.empName.match(/^[A-Za-z\s]+$/)) {
-
-                    errors.empName =
-                        "Employee Name may contain letters only.";
-
-                }
-
-                if (!employee.phone.match(/^\d{11}$/)) {
-
-                    errors.phone =
-                        "Phone Number must contain 11 digits.";
-
-                }
-
-                if (!employee.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-
-                    errors.email =
-                        "Invalid email format.";
-
-                }
-
-                return errors;
-
-            }
-
             res.status(201).json({
 
                 message:
@@ -417,73 +421,119 @@ app.post(
 /**
  * Update an existing employee record
  */
-app.put(
-    "/api/employees/:id",
-    (req, res) => {
+app.put("/api/employees/:id", (req, res) => {
 
-        try {
+    try {
 
-            // Employee ID from URL
-            const empId =
-                req.params.id;
+        // Employee ID from URL
+        const empId = req.params.id;
 
-            // Load employee records
-            const employees =
-                getEmployees();
-
-            // Find employee index
-            const employeeIndex =
-                employees.findIndex(
-                    employee =>
-                        employee.empId === empId
-                );
-
-            // Employee not found
-            if (
-                employeeIndex === -1
-            ) {
-
-                return res.status(404).json({
-
-                    message:
-                        "Employee not found."
-
-                });
-
-            }
-
-            // Replace employee record
-            employees[employeeIndex] =
-                req.body;
-
-            // Save changes
-            saveEmployees(
-                employees
-            );
-
-            res.status(200).json({
-
-                message:
-                    "Employee updated successfully."
-
+        // Ensure request body is a valid object
+        if (
+            !req.body ||
+            typeof req.body !== "object" ||
+            Array.isArray(req.body)
+        ) {
+            return res.status(400).json({
+                message: "Invalid employee data."
             });
-
-        } catch (error) {
-
-            res.status(500).json({
-
-                message:
-                    "Failed to update employee.",
-
-                error:
-                    error.message
-
-            });
-
         }
 
+        // Load employee records
+        const employees = getEmployees();
+
+        // Find employee index
+        const employeeIndex = employees.findIndex(
+            employee => employee.empId === empId
+        );
+
+        // Employee not found
+        if (employeeIndex === -1) {
+            return res.status(404).json({
+                message: "Employee not found."
+            });
+        }
+
+        // Check whether the submitted ID differs
+        const submittedEmpId = String(
+            req.body.empId ?? ""
+        ).trim();
+
+        if (
+            submittedEmpId &&
+            submittedEmpId !== empId
+        ) {
+            return res.status(400).json({
+                message: "Employee ID cannot be changed."
+            });
+        }
+
+        // Sanitize employee information
+        const updatedEmployee = sanitizeEmployee({
+            ...req.body,
+            empId: empId
+        });
+
+        // Apply shared validation
+        const errors = validateEmployee(updatedEmployee);
+
+        // Reject invalid employee information
+        if (Object.keys(errors).length > 0) {
+            return res.status(400).json({
+                message: "Please correct the employee information.",
+                errors: errors
+            });
+        }
+
+        // Replace existing employee record
+        employees[employeeIndex] = updatedEmployee;
+
+        // Save changes
+        saveEmployees(employees);
+
+        // Return success response
+        return res.status(200).json({
+            message: "Employee updated successfully.",
+            employee: updatedEmployee
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            message: "Failed to update employee.",
+            error: error.message
+        });
+
     }
-);
+
+});
+
+// -----------------------------------------------------
+// CLEAR ALL EMPLOYEES
+// -----------------------------------------------------
+
+app.delete("/api/employees", (req, res) => {
+    try {
+        // Replace all employee records with an empty array
+        saveEmployees([]);
+
+        return res.status(200).json({
+            message: "All employee records deleted successfully."
+        });
+
+    } catch (error) {
+        console.error(
+            "Error clearing employee records:",
+            error.message
+        );
+
+        return res.status(500).json({
+            message: "Failed to clear employee records.",
+            error: error.message
+        });
+    }
+});
+
 
 // -----------------------------------------------------
 // DELETE EMPLOYEE
