@@ -110,8 +110,8 @@ The system includes a login feature for demonstration and academic purposes.
 
 | Field | Value |
 |---|---|
-| Username | `[Enter demo username]` |
-| Password | `[Enter demo password]` |
+| Username | `emrm_demo` |
+| Password | `demouser2026` |
 
 **Credential Storage**
 
